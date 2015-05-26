@@ -44,21 +44,21 @@ public class CheckMojo extends AbstractMojo {
      * The file to start from. Links from the file will be checked. Non-URL links (i.e. local files) will be taken for
      * further link checking (feels like recursion)
      */
-    @Parameter(required = true, property = "startFile")
+    @Parameter(required = true, property = "linkchecker.startFile")
     private File startFile;
 
     /**
      * The file name to be used as the default, in case a (non-URL) link points to a folder. It's what happens on a web
      * server: requests for {@code http://foo/bar} will serve you (typically) {@code http://foo/bar/index.html}.
      */
-    @Parameter(required = false, property = "defaultFile", defaultValue = "index.html")
+    @Parameter(required = false, property = "linkchecker.defaultFile", defaultValue = "index.html")
     private String defaultFile;
 
     /**
      * Should this plugin make your build fail if it encounters links to {@code localhost}. Typically, depending on
      * something local to the build would hamper the portability of the build
      */
-    @Parameter(required = false, property = "failOnLocalHost", defaultValue = "true")
+    @Parameter(required = false, property = "linkchecker.failOnLocalHost", defaultValue = "true")
     private boolean failOnLocalHost;
 
     /**
@@ -66,8 +66,20 @@ public class CheckMojo extends AbstractMojo {
      * the fact that (non-local) URLs are out of our control. Typically, validating (non-local) URLs would hamper the
      * reproducibility of the build
      */
-    @Parameter(required = false, property = "failOnBadUrls", defaultValue = "false")
+    @Parameter(required = false, property = "linkchecker.failOnBadUrls", defaultValue = "false")
     private boolean failOnBadUrls;
+
+    /**
+     * Should this plugin make your build fail altogether, or only report its findings.
+     */
+    @Parameter(required = false, property = "linkchecker.reportOnly", defaultValue = "false")
+    private boolean reportOnly;
+
+    /**
+     * Skip this plugin execution.
+     */
+    @Parameter(required = false, property = "linkchecker.skip", defaultValue = "false")
+    private boolean skip;
 
     private List<String> badLinks = new ArrayList<>();
     private List<String> todoListLinks = new ArrayList<>();
@@ -75,6 +87,10 @@ public class CheckMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if(skip) {
+            getLog().info("Not checking links, skipping goal as configured");
+            return;
+        }
         getLog().info("Checking links for: " + startFile + " (recursively)");
 
         todoListLinks.add(startFile.getName());
@@ -95,7 +111,11 @@ public class CheckMojo extends AbstractMojo {
 
     private void failIfNecessary() throws MojoFailureException {
         if(!badLinks.isEmpty()) {
-            throw new MojoFailureException(badLinks.size() + " bad links (see the build log)");
+            if(reportOnly) {
+                getLog().warn("Not failing build for bad links as configured");
+            } else {
+                throw new MojoFailureException(badLinks.size() + " bad links (see the build log)");
+            }
         }
     }
 
