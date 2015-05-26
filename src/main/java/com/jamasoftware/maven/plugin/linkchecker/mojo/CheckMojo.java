@@ -142,7 +142,7 @@ public class CheckMojo extends AbstractMojo {
         }
         System.out.println();
 
-        getLog().info("processed " + todoListLinks.size() + " files");
+        getLog().info("Processed " + todoListLinks.size() + " files");
     }
 
     private void processLinkAsFile(String link) throws MojoExecutionException {
@@ -165,10 +165,10 @@ public class CheckMojo extends AbstractMojo {
                     processValidUrl(link, url);
                 }
             } else {
-                getLog().warn("only http* supported; not handling URL: " + url);
+                getLog().warn("Only http* supported; not handling URL: " + url);
             }
         } catch (MalformedURLException exception) {
-            getLog().info("bad URL: " + link, exception);
+            getLog().info("Bad URL: " + link, exception);
             addBadUrlIfConfigured(link);
         }
     }
@@ -180,14 +180,14 @@ public class CheckMojo extends AbstractMojo {
             connection.connect();
             int responseCode = connection.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
-                getLog().info("got response code " + responseCode + " for URL: " + url);
+                getLog().info("Got response code " + responseCode + " for URL: " + url);
                 addBadUrlIfConfigured(link);
             }
         } catch (ConnectException exception) {
-            getLog().info("cannot connect to URL: " + url);
+            getLog().info("Cannot connect to URL: " + url);
             addBadUrlIfConfigured(link);
         } catch (IOException exception) {
-            getLog().info("problem with URL: " + url);
+            getLog().info("Problem with URL: " + url);
             addBadUrlIfConfigured(link);
         }
     }
@@ -235,10 +235,10 @@ public class CheckMojo extends AbstractMojo {
             for (Element element : elements) {
                 String link = element.attr(attributeName);
                 if (isIgnored(link)) {
-                    getLog().debug("ignoring: " + link);
+                    getLog().debug("Ignoring: " + link);
                 } else {
                     if (todoListLinks.contains(link)) {
-                        getLog().debug("already marked: " + link);
+                        getLog().debug("Already marked: " + link);
                     } else {
                         todoListLinks.add(link);
                     }
