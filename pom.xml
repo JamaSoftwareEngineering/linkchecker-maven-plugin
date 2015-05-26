@@ -7,14 +7,14 @@
     </parent>
     <groupId>com.jamasoftware.maven.plugin</groupId>
     <artifactId>linkchecker-maven-plugin</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>maven-plugin</packaging>
     <name>${project.artifactId}: check links in HTML</name>
     <description>Check links in a given HTML file. Non-URL links (i.e. local files) will be
         taken for further link checking</description>
     <scm>
         <connection>scm:git:git@git.jamasoftware.net:maven/linkchecker-maven-plugin.git</connection>
-      <tag>HEAD</tag>
+      <tag>linkchecker-maven-plugin-1.0.1</tag>
   </scm>
     <dependencies>
         <dependency>
