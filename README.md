@@ -47,7 +47,7 @@ This project is licensed under [the Apache License, Version 2.0](https://www.apa
 ## About Jama
 
 Jama is software for better, faster requirements definition, management, verification and validation, from inception to
-production. Our Vision is of Modern Product Delivery. Building new products shouldn’t be frustrating and wasteful. It
+production. Our vision is of Modern Product Delivery. Building new products shouldn’t be frustrating and wasteful. It
 ought to be enlightening and profitable. We make possible the impossible products of the future. Find more information
 on [our web site](http://www.jamasoftware.com/). Jama Software is a fast-growing company, and we are [hiring]
 (http://www.jamasoftware.com/company/careers/).
