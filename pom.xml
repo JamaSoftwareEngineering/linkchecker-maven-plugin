@@ -4,7 +4,7 @@
     <parent>
         <artifactId>jama-parent-oss</artifactId>
         <groupId>com.jamasoftware.oss</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <groupId>com.jamasoftware.maven.plugin</groupId>
     <artifactId>linkchecker-maven-plugin</artifactId>
